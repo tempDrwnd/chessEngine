@@ -18,7 +18,10 @@ public class Test {
                 {'r', 'n', 'b', '0', 'k', 'b', 'n', 'r'}
         };
 
-        fixedTest(board, 100000000);
+        int n = 10000;
+
+        //fixedTest(board, n);
+        randTest(n);
 
     }
 
@@ -69,15 +72,17 @@ public class Test {
             }
         }
 
+        System.out.println("starting evaluation");
+
         Instant start = Instant.now();
 
 
         for (int i = 0; i<n; i++) {
             for (int r = 0; r<8; r++) {
                 for (int f = 0; f<8; f++) {
-                    System.out.print(array[i][r][f]);
+                    //System.out.print(array[i][r][f]);
                 }
-                System.out.println("");
+                //System.out.println("");
             }
             Evaluate bot = new Evaluate(
                     0.5,
@@ -90,14 +95,16 @@ public class Test {
                     0.5,
                     0.5
             );
-            System.out.println(bot.evaluate(array[i]));
-            System.out.println("--------");
+            double eval = bot.evaluate(array[i]);
+            //System.out.println(eval);
+            //System.out.println("--------");
         }
 
         Instant end = Instant.now();
         Duration timeElapsed = Duration.between(start, end);
         System.out.println(n+" boards");
         System.out.println(timeElapsed.toMillis() + " ms in total");
+        System.out.println((timeElapsed.toMillis() / 1000.0)/60.0 + " minutes");
         System.out.println(timeElapsed.toMillis()/(double)n +" ms per board");
     }
 
