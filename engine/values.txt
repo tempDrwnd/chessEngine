@@ -2,3 +2,4 @@ pawn = 1;
 minor piece = 3;
 rook = 5;
 Queen = 10;
+King = 1000;
