@@ -1,27 +1,51 @@
 public class Evaluate {
-    static double E = 0.0;
-    static boolean endgame = false;
 
-    static int value_White;
-    static int value_Black;
+    char[][] board = new char[8][8];
+    double E = 0.0;
+    boolean endgame = false;
 
-    static int value_King = 1000;
-    static int value_Queen = 10;
-    static int value_Rook = 5;
-    static int value_minorPiece = 3;
-    static int value_Pawn = 1;
+    int value_White;
+    int value_Black;
 
-    static double value_passedPawn = 0.5;
-    static double value_isolatedPawn = 0.5;
-    static double value_stackedPawn = 0.5;
-    static double value_centralPawn = 0.5;
-    static double value_advancedPawn = 0.5;
-    static double value_centralKnight = 0.5;
-    static double value_centralRook = 0.5;
-    static double value_seventhRankRook = 0.5;
+    int value_King = 1000;
+    int value_Queen = 10;
+    int value_Rook = 5;
+    int value_minorPiece = 3;
+    int value_Pawn = 1;
+
+    double value_passedPawn;
+    double value_isolatedPawn;
+    double value_stackedPawn;
+    double value_centralPawn ;
+    double value_advancedPawn;
+    double value_centralKnight;
+    double value_centralRook;
+    double value_seventhRankRook;
+
+    public Evaluate(
+            double value_passedPawn,
+            double value_isolatedPawn,
+            double value_stackedPawn,
+            double value_centralPawn,
+            double value_advancedPawn,
+            double value_centralKnight,
+            double value_centralRook,
+            double value_seventhRankRook
+    )
+    {
+        this.value_passedPawn = value_passedPawn;
+        this.value_isolatedPawn = value_isolatedPawn;
+        this.value_stackedPawn = value_stackedPawn;
+        this.value_centralPawn = value_centralPawn;
+        this.value_advancedPawn = value_advancedPawn;
+        this.value_centralKnight = value_centralKnight;
+        this.value_centralRook = value_centralRook;
+        this.value_seventhRankRook = value_seventhRankRook;
+    }
 
 
-    public static double evaluate(char[][] board){
+    public double evaluate(char[][] array){
+        this.board = array;
 
         for (int y = 0; y<8; y++) {
             for (int x = 0; x<8; x++) {
@@ -82,7 +106,7 @@ public class Evaluate {
     }
 
 
-    public static int checkFile(char[][] board, int file, char character){
+    public int checkFile(int file, char character){
         int counter = 0;
 
         for (int r = 0; r<8; r++){
@@ -94,7 +118,7 @@ public class Evaluate {
     }
 
 
-    public static void pawn(char[][] board, int r, int f) {
+    public void pawn(int r, int f) {
         double n = 0;
         char current;
         char opponent;
@@ -103,7 +127,6 @@ public class Evaluate {
         if (board[r][f] == 'P') {
             current = 'P';
             opponent = 'p';
-            m = 1;
         } else {
             current = 'p';
             opponent = 'P';
@@ -112,9 +135,9 @@ public class Evaluate {
 
 
         // passed
-        if (checkFile(board, f, opponent) == 0) {
-            if (f == 0 || checkFile(board, f - 1, opponent) == 0) {
-                if (f == 7 || checkFile(board, f + 1, opponent) == 0) {
+        if (checkFile(f, opponent) == 0) {
+            if (f == 0 || checkFile(f - 1, opponent) == 0) {
+                if (f == 7 || checkFile(f + 1, opponent) == 0) {
                     if (current == 'P'){
                         E += (value_passedPawn * 18) / (8 - (r + 1));
                     } else {
@@ -125,14 +148,14 @@ public class Evaluate {
         }
 
         // isolated
-        if (f == 0 || checkFile(board, f - 1, current) == 0) {
-            if (f == 7 || checkFile(board, f + 1, current) == 0) {
+        if (f == 0 || checkFile(f - 1, current) == 0) {
+            if (f == 7 || checkFile(f + 1, current) == 0) {
                 E -= value_isolatedPawn * m;
             }
         }
 
         // stacked
-        n = checkFile(board, f, current) - 1;
+        n = checkFile(f, current) - 1;
         E -= ((n * value_stackedPawn + ((n*(n-1))/2) * 0.2 * value_stackedPawn)/2) * m;
 
         // advanced
@@ -157,7 +180,7 @@ public class Evaluate {
     }
 
 
-    public static void knight(char[][] board, int r, int f) {
+    public void knight(int r, int f) {
         int m = 1;
 
         if (board[r][f] == 'n') {m = -1;}
@@ -170,7 +193,7 @@ public class Evaluate {
     }
 
 
-    public static void rook(char[][] board, int r, int f){
+    public void rook(char[][] board, int r, int f){
 
         int m = 1;
         if (board[r][f] == 'r') {m = -1;}
@@ -188,12 +211,12 @@ public class Evaluate {
     }
 
 
-    public static void check(char[][] board, int r, int f) {
+    public void check(char[][] board, int r, int f) {
 
         if (Character.toLowerCase(board[r][f]) == 'p'){
-            pawn(board, r, f);
+            pawn(r, f);
         } else if (Character.toLowerCase(board[r][f]) == 'n') {
-            knight(board, r, f);
+            knight(r, f);
         } else if (Character.toLowerCase(board[r][f]) == 'r') {
             rook(board, r, f);
         }

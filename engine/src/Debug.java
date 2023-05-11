@@ -27,7 +27,17 @@ public class Debug {
         };
 
 
-        double eval = Evaluate.evaluate(board2);
+        Evaluate bot = new Evaluate(
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5
+        );
+        double eval = bot.evaluate(board2);
         System.out.println(eval);
     }
 }
