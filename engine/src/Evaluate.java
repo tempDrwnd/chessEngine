@@ -1,4 +1,6 @@
 public class Evaluate {
+    static boolean endgame = false;
+
     static int value_White;
     static int value_Black;
 
@@ -61,6 +63,10 @@ public class Evaluate {
 
         E += value_White;
         E -= value_Black;
+
+        if ((value_White + value_Black)/2.0 <= 1016) {
+            endgame = true;
+        }
 
         for (int r = 0; r<8; r++){
             for (int f = 0; f<8; f++){
@@ -136,7 +142,7 @@ public class Evaluate {
         }
 
         // endgame pawnmoves
-        if ((value_White + value_Black)/2.0 <= 1016) {
+        if (endgame) {
             if (current == 'P') {
                 E += value_advancedPawn * r;
             } else {
