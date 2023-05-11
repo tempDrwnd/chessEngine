@@ -1,4 +1,5 @@
 public class Evaluate {
+    static double E = 0.0;
     static boolean endgame = false;
 
     static int value_White;
@@ -15,8 +16,7 @@ public class Evaluate {
     static double value_stackedPawn = 0.5;
     static double value_centralPawn = 0.5;
     static double value_advancedPawn = 0.5;
-
-    static double E = 0.0;
+    static double value_centralKnight = 0.5;
 
     public static double evaluate(char[][] board){
 
@@ -154,10 +154,25 @@ public class Evaluate {
     }
 
 
+    public static void knight(char[][] board, int r, int f) {
+        int m = 1;
+
+        if (board[r][f] == 'n') {m = -1;}
+
+        if (f >= 2 && f <= 5) {
+            if (r <= 5 && r >= 2){
+                E += value_centralKnight * m;
+            }
+        }
+    }
+
+
     public static void check(char[][] board, int r, int f) {
 
         if (Character.toLowerCase(board[r][f]) == 'p'){
             pawn(board, r, f);
+        } else if (Character.toLowerCase(board[r][f]) == 'n') {
+            knight(board, r, f);
         }
 
     }
