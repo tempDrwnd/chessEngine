@@ -1,4 +1,13 @@
 public class Evaluate {
+    static int value_White;
+    static int value_Black;
+
+    static int value_King = 1000;
+    static int value_Queen = 10;
+    static int value_Rook = 5;
+    static int value_minorPiece = 3;
+    static int value_Pawn = 1;
+
     static double value_passedPawn = 0.5;
     static double value_isolatedPawn = 0.5;
     static double value_stackedPawn = 0.5;
@@ -7,6 +16,50 @@ public class Evaluate {
     static double E = 0.0;
 
     public static double evaluate(char[][] board){
+
+        for (int y = 0; y<8; y++) {
+            for (int x = 0; x<8; x++) {
+                if (Character.toLowerCase(board[y][x]) == 'p'){
+                    if (Character.toLowerCase(board[y][x]) == board[y][x]){
+                        value_Black += 1;
+                    } else {
+                        value_White += 1;
+                    }
+                }
+                if (Character.toLowerCase(board[y][x]) == 'n' || Character.toLowerCase(board[y][x]) == 'b'){
+                    if (Character.toLowerCase(board[y][x]) == board[y][x]){
+                        value_Black += 3;
+                    } else {
+                        value_White += 3;
+                    }
+                }
+                if (Character.toLowerCase(board[y][x]) == 'r'){
+                    if (Character.toLowerCase(board[y][x]) == board[y][x]){
+                        value_Black += 5;
+                    } else {
+                        value_White += 5;
+                    }
+                }
+                if (Character.toLowerCase(board[y][x]) == 'q'){
+                    if (Character.toLowerCase(board[y][x]) == board[y][x]){
+                        value_Black += 10;
+                    } else {
+                        value_White += 10;
+                    }
+                }
+                if (Character.toLowerCase(board[y][x]) == 'k'){
+                    if (Character.toLowerCase(board[y][x]) == board[y][x]){
+                        value_Black += 1000;
+                    } else {
+                        value_White += 1000;
+                    }
+                }
+
+            }
+        }
+        
+        E += value_White;
+        E -= value_Black;
 
         for (int r = 0; r<8; r++){
             for (int f = 0; f<8; f++){
@@ -80,6 +133,8 @@ public class Evaluate {
                 E += value_centralPawn;
             }
         }
+
+        // endgame pawnmoves
 
         // chain
     }
