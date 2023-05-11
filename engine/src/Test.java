@@ -18,36 +18,12 @@ public class Test {
                 {'r', 'n', 'b', '0', 'k', 'b', 'n', 'r'}
         };
 
-        int n = 1000000000;
-        //char[][][] array = new char[n][8][8];
-        //char[] pieces = {'r', 'R', 'n', 'N', 'b', 'B', 'q', 'Q', 'k', 'K', 'p', 'P'};
-        //Random randint = new Random();
-//
-        //for (int i = 0; i<n; i++) {
-        //    for (int r = 0; r<8; r++) {
-        //        for (int f = 0; f<8; f++) {
-        //            if (randint.nextInt(2) == 1){
-        //                array[i][r][f] = pieces[randint.nextInt(pieces.length)];
-        //            } else {
-        //                array[i][r][f] = '0';
-        //            }
-//
-        //        }
-        //    }
-        //}
+        fixedTest(board, 100000000);
+
+    }
 
 
-        //for (int i = 0; i<n; i++) {
-        //    for (int r = 0; r<8; r++) {
-        //        for (int f = 0; f<8; f++) {
-        //            //System.out.print(array[i][r][f]);
-        //        }
-        //        //System.out.println("");
-        //    }
-        //    //System.out.println(bot.evaluate(array[i]));
-        //    //System.out.println("--------");
-        //}
-
+    public static void fixedTest(char[][] board, int n){
         Instant start = Instant.now();
 
         for (int i = 0; i<n; i++) {
@@ -62,7 +38,60 @@ public class Test {
                     0.5,
                     0.5
             );
-            //System.out.println(bot.evaluate(board));
+            double eval = bot.evaluate(board);
+            //System.out.println(eval);
+        }
+
+        Instant end = Instant.now();
+        Duration timeElapsed = Duration.between(start, end);
+        System.out.println(n+" boards");
+        System.out.println(timeElapsed.toMillis() + " ms in total");
+        System.out.println((timeElapsed.toMillis() / 1000.0)/60.0 + " minutes");
+        System.out.println(timeElapsed.toMillis()/(double)n +" ms per board");
+    }
+
+
+    public static void randTest(int n){
+        char[][][] array = new char[n][8][8];
+        char[] pieces = {'r', 'R', 'n', 'N', 'b', 'B', 'q', 'Q', 'k', 'K', 'p', 'P'};
+        Random randint = new Random();
+
+        for (int i = 0; i<n; i++) {
+            for (int r = 0; r<8; r++) {
+                for (int f = 0; f<8; f++) {
+                    if (randint.nextInt(2) == 1){
+                        array[i][r][f] = pieces[randint.nextInt(pieces.length)];
+                    } else {
+                        array[i][r][f] = '0';
+                    }
+
+                }
+            }
+        }
+
+        Instant start = Instant.now();
+
+
+        for (int i = 0; i<n; i++) {
+            for (int r = 0; r<8; r++) {
+                for (int f = 0; f<8; f++) {
+                    System.out.print(array[i][r][f]);
+                }
+                System.out.println("");
+            }
+            Evaluate bot = new Evaluate(
+                    0.5,
+                    0.5,
+                    0.5,
+                    0.5,
+                    0.5,
+                    0.5,
+                    0.5,
+                    0.5,
+                    0.5
+            );
+            System.out.println(bot.evaluate(array[i]));
+            System.out.println("--------");
         }
 
         Instant end = Instant.now();
@@ -70,7 +99,6 @@ public class Test {
         System.out.println(n+" boards");
         System.out.println(timeElapsed.toMillis() + " ms in total");
         System.out.println(timeElapsed.toMillis()/(double)n +" ms per board");
-
     }
 
 }
