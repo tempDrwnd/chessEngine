@@ -12,6 +12,7 @@ public class Evaluate {
     static double value_isolatedPawn = 0.5;
     static double value_stackedPawn = 0.5;
     static double value_centralPawn = 0.5;
+    static double value_advancedPawn = 0.5;
 
     static double E = 0.0;
 
@@ -57,7 +58,7 @@ public class Evaluate {
 
             }
         }
-        
+
         E += value_White;
         E -= value_Black;
 
@@ -135,6 +136,13 @@ public class Evaluate {
         }
 
         // endgame pawnmoves
+        if ((value_White + value_Black)/2.0 <= 1016) {
+            if (current == 'P') {
+                E += value_advancedPawn * r;
+            } else {
+                E -= value_advancedPawn * (7-r);
+            }
+        }
 
         // chain
     }
