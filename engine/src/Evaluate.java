@@ -21,6 +21,7 @@ public class Evaluate {
     double value_centralKnight;
     double value_centralRook;
     double value_seventhRankRook;
+    double value_pawnChain;
 
     public Evaluate(
             double value_passedPawn,
@@ -30,7 +31,8 @@ public class Evaluate {
             double value_advancedPawn,
             double value_centralKnight,
             double value_centralRook,
-            double value_seventhRankRook
+            double value_seventhRankRook,
+            double value_pawnChain
     )
     {
         this.value_passedPawn = value_passedPawn;
@@ -41,6 +43,7 @@ public class Evaluate {
         this.value_centralKnight = value_centralKnight;
         this.value_centralRook = value_centralRook;
         this.value_seventhRankRook = value_seventhRankRook;
+        this.value_pawnChain = value_pawnChain;
     }
 
 
@@ -177,6 +180,31 @@ public class Evaluate {
         }
 
         // chain
+        int tmp = 0;
+
+        if (f!=7 && r!=7){
+            if (board[r+1][f+1] == current){
+                double val = value_pawnChain * m;
+                if (current == 'P'){
+                    val *= (1/(double)r);
+                } else {
+                    val *= (double)(1/(double)(6-r));
+                }
+                E += val;
+            }
+        }
+        if (f!=0 && r!=7){
+            if (board[r+1][f-1] == current){
+                double val = value_pawnChain * m;
+                if (current == 'P'){
+                    val *= (1/(double)r);
+                } else {
+                    val *= (double)(1/(double)(6-r));
+                }
+                E += val;
+            }
+        }
+
     }
 
 

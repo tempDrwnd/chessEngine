@@ -35,6 +35,7 @@ public class Debug {
                 0.5,
                 0.5,
                 0.5,
+                0.5,
                 0.5
         );
         double eval = bot.evaluate(board2);
