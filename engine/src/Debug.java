@@ -26,7 +26,7 @@ public class Debug {
                 {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
         };
 
-        
+
         double eval = Evaluate.evaluate(board2);
         System.out.println(eval);
     }

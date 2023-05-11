@@ -18,6 +18,7 @@ public class Evaluate {
     static double value_advancedPawn = 0.5;
     static double value_centralKnight = 0.5;
     static double value_centralRook = 0.5;
+    static double value_seventhRankRook = 0.5;
 
 
     public static double evaluate(char[][] board){
@@ -176,6 +177,12 @@ public class Evaluate {
 
         if (f >= 2 && f <= 5) {
             E += value_centralRook * m;
+        }
+
+        if (r == 6 && board[r][f] == 'R') {
+            E += value_seventhRankRook;
+        } else if (r == 1 && board[r][f] == 'r') {
+            E -= value_seventhRankRook;
         }
 
     }
