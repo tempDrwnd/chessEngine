@@ -42,6 +42,8 @@ public class Test {
                     0.5,
                     0.5,
                     0.5,
+                    0.5,
+                    0.5,
                     0.5
             );
             //double eval = bot.evaluate(board);
@@ -88,6 +90,8 @@ public class Test {
                 //System.out.println("");
             }
             Evaluate bot = new Evaluate(
+                    0.5,
+                    0.5,
                     0.5,
                     0.5,
                     0.5,

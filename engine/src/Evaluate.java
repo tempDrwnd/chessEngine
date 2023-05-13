@@ -29,6 +29,8 @@ public class Evaluate {
     double value_activity;
     double value_area;
     double value_kingSafety;
+    double value_kingLead;
+    double value_kingOpposition;
 
     public Evaluate(
             double value_passedPawn,
@@ -42,7 +44,9 @@ public class Evaluate {
             double value_pawnChain,
             double value_activity,
             double value_area,
-            double value_kingSafety
+            double value_kingSafety,
+            double value_kingLead,
+            double value_kingOpposition
     )
     {
         this.value_passedPawn = value_passedPawn;
@@ -57,6 +61,8 @@ public class Evaluate {
         this.value_activity = value_activity;
         this.value_area = value_area;
         this.value_kingSafety = value_kingSafety;
+        this.value_kingLead = value_kingLead;
+        this.value_kingOpposition = value_kingOpposition;
     }
 
 
@@ -167,6 +173,77 @@ public class Evaluate {
     }
 
 
+
+    public String[] getSurroundings(int r, int f, boolean squares){
+
+        String[] result = new String[8];
+
+        for (int i = 0; i<8; i++) {
+            result[i] = "/";
+        }
+
+        if (r != 0 && f != 0){
+            if (squares) {
+                result[0] = ""+board[r-1][f-1];
+            } else {
+                result[0] = (r-1) + "" + (f-1);
+            }
+        }
+        if (r != 0) {
+            if (squares) {
+                result[1] = "" + board[r - 1][f];
+            } else {
+                result[1] = (r - 1) + "" + f;
+            }
+        }
+        if (r != 0 && f != 7) {
+            if (squares) {
+                result[2] = "" + board[r - 1][f+1];
+            } else {
+                result[2] = (r - 1) + "" + (f+1);
+            }
+        }
+        if (f != 0) {
+            if (squares) {
+                result[3] = "" + board[r][f-1];
+            } else {
+                result[3] = (r) + "" + (f-1);
+            }
+        }
+        if (f != 7) {
+            if (squares) {
+                result[4] = "" + board[r][f+1];
+            } else {
+                result[4] = (r) + "" + (f+1);
+            }
+        }
+        if (r != 7 && f != 0){
+            if (squares) {
+                result[5] = ""+board[r+1][f-1];
+            } else {
+                result[5] = (r+1) + "" + (f-1);
+            }
+        }
+        if (r != 7) {
+            if (squares) {
+                result[6] = "" + board[r + 1][f];
+            } else {
+                result[6] = (r + 1) + "" + f;
+            }
+        }
+        if (r != 7 && f != 7) {
+            if (squares) {
+                result[7] = "" + board[r + 1][f+1];
+            } else {
+                result[7] = (r + 1) + "" + (f+1);
+            }
+        }
+
+        return result;
+
+    }
+
+
     public int checkFile(int file, char character){
         int counter = 0;
 
@@ -177,6 +254,7 @@ public class Evaluate {
         }
         return counter;
     }
+
 
 
     public void pawn(int r, int f) {
@@ -300,25 +378,51 @@ public class Evaluate {
     public void king(int r, int f) {
 
         int m = 1;
+        int r_ = r;
 
         if (board[r][f] == 'k') {
             m = -1;
             r = (r - 7) * m;
         }
 
-        if (r == 0 && (f == 0 || f == 1 || f == 6 || f == 7)) {
-            System.out.println("abgh " + m);
-            System.out.println(r + " " + f);
-            E += value_kingSafety * m;
-        } else if (r == 1 && (f == 0 || f == 7)) {
-            System.out.println("ah " + m);
-            E += value_kingSafety * m * (1 / 6.0);
-        } else if (r == 0 && f == 2) {
-            System.out.println("c " + m);
-            E += value_kingSafety * m * (1 / 5.0);
+        if (endgame){
 
+            String[] s = getSurroundings(r_, f, true);
+
+            if (m == 1){
+                if (s[0].equals('P'+ "")){
+                    E += value_kingLead;
+                }
+                if (s[1].equals('P'+ "")){
+                    E += value_kingLead;
+                }
+                if (s[2].equals('P'+ "")){
+                    E += value_kingLead;
+                }
+            } else {
+                if (s[5].equals('p'+ "")){
+                    E -= value_kingLead;
+                }
+                if (s[6].equals('p'+ "")){
+                    E -= value_kingLead;
+                }
+                if (s[7].equals('p'+ "")){
+                    E -= value_kingLead;
+                }
+            }
+        } else {
+            if (r == 0 && (f == 0 || f == 1 || f == 6 || f == 7)) {
+                System.out.println(r + " " + f);
+                E += value_kingSafety * m;
+            } else if (r == 1 && (f == 0 || f == 7)) {
+                E += value_kingSafety * m * (1 / 6.0);
+            } else if (r == 0 && f == 2) {
+                E += value_kingSafety * m * (1 / 5.0);
+
+            }
         }
     }
+
 
 
     public void check(char[][] board, int r, int f) {
