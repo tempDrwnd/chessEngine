@@ -279,7 +279,7 @@ public class Evaluate {
     }
 
 
-    public void rook(char[][] board, int r, int f){
+    public void rook(int r, int f){
 
         int m = 1;
         if (board[r][f] == 'r') {m = -1;}
@@ -297,6 +297,30 @@ public class Evaluate {
     }
 
 
+    public void king(int r, int f) {
+
+        int m = 1;
+
+        if (board[r][f] == 'k') {
+            m = -1;
+            r = (r - 7) * m;
+        }
+
+        if (r == 0 && (f == 0 || f == 1 || f == 6 || f == 7)) {
+            System.out.println("abgh " + m);
+            System.out.println(r + " " + f);
+            E += value_kingSafety * m;
+        } else if (r == 1 && (f == 0 || f == 7)) {
+            System.out.println("ah " + m);
+            E += value_kingSafety * m * (1 / 6.0);
+        } else if (r == 0 && f == 2) {
+            System.out.println("c " + m);
+            E += value_kingSafety * m * (1 / 5.0);
+
+        }
+    }
+
+
     public void check(char[][] board, int r, int f) {
 
         if (Character.toLowerCase(board[r][f]) == 'p'){
@@ -304,7 +328,9 @@ public class Evaluate {
         } else if (Character.toLowerCase(board[r][f]) == 'n') {
             knight(r, f);
         } else if (Character.toLowerCase(board[r][f]) == 'r') {
-            rook(board, r, f);
+            rook(r, f);
+        } else if (Character.toLowerCase(board[r][f]) == 'k') {
+            king(r, f);
         }
 
     }
