@@ -412,7 +412,6 @@ public class Evaluate {
             }
         } else {
             if (r == 0 && (f == 0 || f == 1 || f == 6 || f == 7)) {
-                System.out.println(r + " " + f);
                 E += value_kingSafety * m;
             } else if (r == 1 && (f == 0 || f == 7)) {
                 E += value_kingSafety * m * (1 / 6.0);

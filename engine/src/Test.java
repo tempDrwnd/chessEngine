@@ -20,8 +20,8 @@ public class Test {
 
         int n = 10000;
 
-        fixedTest(board, n);
-        //randTest(n);
+        //fixedTest(board, n);
+        randTest(n);
 
     }
 
@@ -60,6 +60,10 @@ public class Test {
 
 
     public static void randTest(int n){
+
+        int[][] moves1 = {{1, 0, 2, 2}, {2, 1, 2, 2}, {5, 0, 4, 2}, {4, 0, 4, 1}};
+        int[][] moves2 = {{1, 7, 2, 5}, {2, 6, 2, 5}, {5, 7, 4, 5}, {4, 7, 4, 6}};
+
         char[][][] array = new char[n][8][8];
         char[] pieces = {'r', 'R', 'n', 'N', 'b', 'B', 'q', 'Q', 'k', 'K', 'p', 'P'};
         Random randint = new Random();
@@ -105,8 +109,8 @@ public class Test {
                     0.5,
                     0.5
             );
-            //double eval = bot.evaluate(array[i]);
-            //System.out.println(eval);
+            double eval = bot.evaluate(array[i], moves1, moves2);
+            System.out.println(eval);
             //System.out.println("--------");
         }
 
