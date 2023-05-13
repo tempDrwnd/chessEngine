@@ -6,6 +6,10 @@ public class Evaluate {
 
     int value_White;
     int value_Black;
+    int whiteActivity;
+    int blackActivity;
+    int whiteArea;
+    int blackArea;
 
     int value_King = 1000;
     int value_Queen = 10;
@@ -22,6 +26,8 @@ public class Evaluate {
     double value_centralRook;
     double value_seventhRankRook;
     double value_pawnChain;
+    double value_activity;
+    double value_area;
 
     public Evaluate(
             double value_passedPawn,
@@ -32,7 +38,9 @@ public class Evaluate {
             double value_centralKnight,
             double value_centralRook,
             double value_seventhRankRook,
-            double value_pawnChain
+            double value_pawnChain,
+            double value_activity,
+            double value_area
     )
     {
         this.value_passedPawn = value_passedPawn;
@@ -44,47 +52,76 @@ public class Evaluate {
         this.value_centralRook = value_centralRook;
         this.value_seventhRankRook = value_seventhRankRook;
         this.value_pawnChain = value_pawnChain;
+        this.value_activity = value_activity;
+        this.value_area = value_area;
     }
 
 
-    public double evaluate(char[][] array){
+    public double evaluate(char[][] array, int[][] whiteMoves, int[][] blackMoves){
         this.board = array;
+
+        String wm = new String("");
+        String subwm = new String("");
+        String bm = new String("");
+        String subbm = new String("");
+
+        whiteActivity = whiteMoves.length;
+        blackActivity = blackMoves.length;
+        for (int w = 0; w<whiteMoves.length; w++){
+            subwm = "<" + whiteMoves[w][2] + "" + whiteMoves[w][2] + ">";
+            if (!wm.contains(subwm)){
+                wm += subwm;
+                whiteArea++;
+            }
+        }
+        for (int b = 0; b<blackMoves.length; b++){
+            subbm = "<" + blackMoves[b][2] + "" + blackMoves[b][2] + ">";
+            if (!bm.contains(subbm)){
+                bm += subbm;
+                blackArea++;
+            }
+        }
+
+        E += whiteActivity * value_activity;
+        E -= blackActivity * value_activity;
+        E += whiteArea * value_area;
+        E -= blackArea * value_area;
 
         for (int y = 0; y<8; y++) {
             for (int x = 0; x<8; x++) {
                 if (Character.toLowerCase(board[y][x]) == 'p'){
                     if (Character.toLowerCase(board[y][x]) == board[y][x]){
-                        value_Black += 1;
+                        value_Black += value_Pawn;
                     } else {
-                        value_White += 1;
+                        value_White += value_Pawn;
                     }
                 }
                 if (Character.toLowerCase(board[y][x]) == 'n' || Character.toLowerCase(board[y][x]) == 'b'){
                     if (Character.toLowerCase(board[y][x]) == board[y][x]){
-                        value_Black += 3;
+                        value_Black += value_minorPiece;
                     } else {
-                        value_White += 3;
+                        value_White += value_minorPiece;
                     }
                 }
                 if (Character.toLowerCase(board[y][x]) == 'r'){
                     if (Character.toLowerCase(board[y][x]) == board[y][x]){
-                        value_Black += 5;
+                        value_Black += value_Rook;
                     } else {
-                        value_White += 5;
+                        value_White += value_Rook;
                     }
                 }
                 if (Character.toLowerCase(board[y][x]) == 'q'){
                     if (Character.toLowerCase(board[y][x]) == board[y][x]){
-                        value_Black += 10;
+                        value_Black += value_Queen;
                     } else {
-                        value_White += 10;
+                        value_White += value_Queen;
                     }
                 }
                 if (Character.toLowerCase(board[y][x]) == 'k'){
                     if (Character.toLowerCase(board[y][x]) == board[y][x]){
-                        value_Black += 1000;
+                        value_Black += value_King;
                     } else {
-                        value_White += 1000;
+                        value_White += value_King;
                     }
                 }
 

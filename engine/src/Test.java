@@ -20,8 +20,8 @@ public class Test {
 
         int n = 10000;
 
-        //fixedTest(board, n);
-        randTest(n);
+        fixedTest(board, n);
+        //randTest(n);
 
     }
 
@@ -39,9 +39,11 @@ public class Test {
                     0.5,
                     0.5,
                     0.5,
+                    0.5,
+                    0.5,
                     0.5
             );
-            double eval = bot.evaluate(board);
+            //double eval = bot.evaluate(board);
             //System.out.println(eval);
         }
 
@@ -93,9 +95,11 @@ public class Test {
                     0.5,
                     0.5,
                     0.5,
+                    0.5,
+                    0.5,
                     0.5
             );
-            double eval = bot.evaluate(array[i]);
+            //double eval = bot.evaluate(array[i]);
             //System.out.println(eval);
             //System.out.println("--------");
         }
