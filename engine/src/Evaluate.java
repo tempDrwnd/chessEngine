@@ -28,6 +28,7 @@ public class Evaluate {
     double value_pawnChain;
     double value_activity;
     double value_area;
+    double value_kingSafety;
 
     public Evaluate(
             double value_passedPawn,
@@ -40,7 +41,8 @@ public class Evaluate {
             double value_seventhRankRook,
             double value_pawnChain,
             double value_activity,
-            double value_area
+            double value_area,
+            double value_kingSafety
     )
     {
         this.value_passedPawn = value_passedPawn;
@@ -54,38 +56,12 @@ public class Evaluate {
         this.value_pawnChain = value_pawnChain;
         this.value_activity = value_activity;
         this.value_area = value_area;
+        this.value_kingSafety = value_kingSafety;
     }
 
 
     public double evaluate(char[][] array, int[][] whiteMoves, int[][] blackMoves){
         this.board = array;
-
-        String wm = new String("");
-        String subwm = new String("");
-        String bm = new String("");
-        String subbm = new String("");
-
-        whiteActivity = whiteMoves.length;
-        blackActivity = blackMoves.length;
-        for (int w = 0; w<whiteMoves.length; w++){
-            subwm = "<" + whiteMoves[w][2] + "" + whiteMoves[w][2] + ">";
-            if (!wm.contains(subwm)){
-                wm += subwm;
-                whiteArea++;
-            }
-        }
-        for (int b = 0; b<blackMoves.length; b++){
-            subbm = "<" + blackMoves[b][2] + "" + blackMoves[b][2] + ">";
-            if (!bm.contains(subbm)){
-                bm += subbm;
-                blackArea++;
-            }
-        }
-
-        E += whiteActivity * value_activity;
-        E -= blackActivity * value_activity;
-        E += whiteArea * value_area;
-        E -= blackArea * value_area;
 
         for (int y = 0; y<8; y++) {
             for (int x = 0; x<8; x++) {
@@ -120,8 +96,26 @@ public class Evaluate {
                 if (Character.toLowerCase(board[y][x]) == 'k'){
                     if (Character.toLowerCase(board[y][x]) == board[y][x]){
                         value_Black += value_King;
+                        if (y != 0 && board[y-1][x] == 'p'){
+                            E -= (1/3.0) * value_kingSafety;
+                        }
+                        if (y != 0 && x != 0 && board[y-1][x-1] == 'p'){
+                            E -= (1/3.0) * value_kingSafety;
+                        }
+                        if (y != 0 && x != 7 && board[y-1][x+1] == 'p'){
+                            E -= (1/3.0) * value_kingSafety;
+                        }
                     } else {
                         value_White += value_King;
+                        if (y != 7 && board[y+1][x] == 'P'){
+                            E += (1/3.0) * value_kingSafety;
+                        }
+                        if (y != 7 && x != 0 && board[y+1][x-1] == 'P'){
+                            E += (1/3.0) * value_kingSafety;
+                        }
+                        if (y != 7 && x != 7 && board[y+1][x+1] == 'P'){
+                            E += (1/3.0) * value_kingSafety;
+                        }
                     }
                 }
 
@@ -134,6 +128,33 @@ public class Evaluate {
         if ((value_White + value_Black)/2.0 <= 1016) {
             endgame = true;
         }
+
+        String wm = new String("");
+        String subwm = new String("");
+        String bm = new String("");
+        String subbm = new String("");
+
+        whiteActivity = whiteMoves.length;
+        blackActivity = blackMoves.length;
+        for (int w = 0; w<whiteMoves.length; w++){
+            subwm = "<" + whiteMoves[w][2] + "" + whiteMoves[w][2] + ">";
+            if (!wm.contains(subwm)){
+                wm += subwm;
+                whiteArea++;
+            }
+        }
+        for (int b = 0; b<blackMoves.length; b++){
+            subbm = "<" + blackMoves[b][2] + "" + blackMoves[b][2] + ">";
+            if (!bm.contains(subbm)){
+                bm += subbm;
+                blackArea++;
+            }
+        }
+
+        E += whiteActivity * value_activity;
+        E -= blackActivity * value_activity;
+        E += whiteArea * value_area;
+        E -= blackArea * value_area;
 
         for (int r = 0; r<8; r++){
             for (int f = 0; f<8; f++){
