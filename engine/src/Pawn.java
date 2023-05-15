@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 public class Pawn  extends Piece{
     protected Pawn(boolean isWhite, int pos) {
         super(isWhite, pos);
@@ -8,12 +10,11 @@ public class Pawn  extends Piece{
         if(whitePiece(Main.sBoard.charAt(target)) != isWhite && Main.sBoard.charAt(target) != '0'){
             return false;
         }
-        return true;
+        return false;
     }
 
-    @Override
-    public int[] getValidMoves(int pos, boolean isWhite) {
-        return new int[0];
+    public static LinkedList<Integer> getValidMoves(int pos, boolean isWhite) {
+        return new LinkedList<Integer>();
     }
 
     @Override

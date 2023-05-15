@@ -9,7 +9,6 @@ public abstract class Piece {
         this.isWhite = isWhite;
         this.pos = pos;
     }
-    public abstract int[] getValidMoves(int pos, boolean isWhite);             //Does check for checks
     public abstract String getType();
     public int pos;
 
@@ -80,6 +79,28 @@ public abstract class Piece {
         }
         return false;
     }
+
+    public static int[] getAllValidMoves(boolean isWhite){
+        LinkedList<Integer> moves = new LinkedList<>();
+
+        for(int i = 0; i < Main.sBoard.length(); i++){
+            char piece = Main.sBoard.charAt(i);
+            if(whitePiece(piece) != isWhite){
+                if(piece == '0'){
+                    continue;
+                }
+                switch (piece) {
+                    case 'P', 'p' -> moves.addAll(Pawn.getValidMoves(i, isWhite));
+                    case 'R', 'r' -> moves.addAll(Rook.getValidMoves(i, isWhite));
+                    case 'N', 'n' -> moves.addAll(Knight.getValidMoves(i, isWhite));
+                    case 'B', 'b' -> moves.addAll(Bishop.getValidMoves(i, isWhite));
+                    case 'K', 'k' -> moves.addAll(King.getValidMoves(i, isWhite));
+                    case 'Q', 'q' -> moves.addAll(Queen.getValidMoves(i, isWhite));
+                }
+            }
+        }
+        return toArray(moves);
+    }
     
     public static int[] toArray(LinkedList<Integer> moves){
         int[] arrayMoves = new int[moves.size()];
@@ -91,7 +112,7 @@ public abstract class Piece {
         return arrayMoves;
     }
     
-    public boolean isFreeSquare(int square, int origin, boolean isWhite){
+    public static boolean isFreeSquare(int square, int origin, boolean isWhite){
         System.out.println("ha");
         if(square < 0 || square > 63){
             return false;
@@ -122,7 +143,7 @@ public abstract class Piece {
         return true;
     }
 
-    public boolean isSquareBlocked(int square){
+    public static boolean isSquareBlocked(int square){
         return Main.sBoard.charAt(square) != '0';
     }
 

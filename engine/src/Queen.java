@@ -50,60 +50,60 @@ public class Queen  extends Piece{
         return true;
     }
 
-    @Override
-    public int[] getValidMoves(int pos, boolean isWhite) {
+    public static LinkedList<Integer> getValidMoves(int pos, boolean isWhite) {
         LinkedList<Integer> moves = new LinkedList<>();
+        int pos_ = pos << 6;
         int tmp = 1;
         while((pos >> 3) - tmp >= 0){
-            if(isFreeSquare(pos - 8 * tmp, pos, isWhite)) moves.add(pos - 8 * tmp);
+            if(isFreeSquare(pos - 8 * tmp, pos, isWhite)) moves.add(pos_ + pos - 8 * tmp);
             if(isSquareBlocked(pos - 8 * tmp)) break;
             tmp++;
         }
         tmp = 1;
         while(((pos >> 3)) + tmp < 8){
-            if(isFreeSquare(pos + 8 * tmp, pos, isWhite)) moves.add(pos + 8 * tmp);
+            if(isFreeSquare(pos + 8 * tmp, pos, isWhite)) moves.add(pos_ + pos + 8 * tmp);
             if(isSquareBlocked(pos + 8 * tmp)) break;
             tmp++;
         }
         tmp = 1;
         while(pos % 8 - tmp >= 0){
-            if(isFreeSquare(pos - tmp, pos, isWhite)) moves.add(pos - tmp);
+            if(isFreeSquare(pos - tmp, pos, isWhite)) moves.add(pos_ + pos - tmp);
             if(isSquareBlocked(pos - tmp)) break;
             tmp++;
         }
         tmp = 1;
         while(pos % 8 - tmp < 8){
-            if(isFreeSquare(pos + tmp, pos, isWhite)) moves.add(pos + tmp);
+            if(isFreeSquare(pos + tmp, pos, isWhite)) moves.add(pos_ + pos + tmp);
             if(isSquareBlocked(pos + tmp)) break;
             tmp++;
         }
 
         tmp = 1;
         while((pos >> 3) - tmp >= 0 && pos % 8 - tmp >= 0){
-            if(isFreeSquare(pos - 9 * tmp, pos, isWhite)) moves.add(pos - 9 * tmp);
+            if(isFreeSquare(pos - 9 * tmp, pos, isWhite)) moves.add(pos_ + pos - 9 * tmp);
             if(isSquareBlocked(pos - 9 * tmp)) break;
             tmp++;
         }
         tmp = 1;
         while((pos >> 3) - tmp >= 0 && pos % 8 + tmp < 8){
-            if(isFreeSquare(pos - 7 * tmp, pos, isWhite)) moves.add(pos - 7 * tmp);
+            if(isFreeSquare(pos - 7 * tmp, pos, isWhite)) moves.add(pos_ + pos - 7 * tmp);
             if(isSquareBlocked(pos - 7 * tmp)) break;
             tmp++;
         }
         tmp = 1;
         while((pos >> 3) + tmp < 8 && pos % 8 - tmp >= 0){
-            if(isFreeSquare(pos + 7 * tmp, pos, isWhite)) moves.add(pos + 7 * tmp);
+            if(isFreeSquare(pos + 7 * tmp, pos, isWhite)) moves.add(pos_ + pos + 7 * tmp);
             if(isSquareBlocked(pos + 7 * tmp)) break;
             tmp++;
         }
         tmp = 1;
         while((pos >> 3) + tmp < 8 && pos % 8 + tmp < 8){
-            if(isFreeSquare(pos + 9 * tmp, pos, isWhite)) moves.add(pos + 9 * tmp);
+            if(isFreeSquare(pos + 9 * tmp, pos, isWhite)) moves.add(pos_ + pos + 9 * tmp);
             if(isSquareBlocked(pos + 9 * tmp)) break;
             tmp++;
         }
 
-        return Piece.toArray(moves);
+        return moves;
     }
 
     @Override

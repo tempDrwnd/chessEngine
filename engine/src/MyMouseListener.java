@@ -54,7 +54,7 @@ public class MyMouseListener implements MouseListener {
         if (nameInProcess) {
 
             if (true) {   //Checks if the move is valid
-                System.out.println(Piece.containsMove(Piece.board[selectedLine][selectedFile].getValidMoves((selectedLine << 3) + selectedFile, Piece.board[selectedLine][selectedFile].isWhite), (temp2 << 3) + temp1));
+                System.out.println(Piece.containsMove(Piece.toArray(Knight.getValidMoves((selectedLine << 3) + selectedFile, Piece.board[selectedLine][selectedFile].isWhite)), (temp2 << 3) + temp1));
                 System.out.println(Knight.isMoveValid((selectedLine << 3) + selectedFile, (temp2 << 3) + temp1, !Piece.board[selectedLine][selectedFile].isWhite));
 
                 Piece.board[temp2][temp1] = Piece.board[selectedLine][selectedFile];//Makes the move
