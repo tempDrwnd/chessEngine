@@ -1,8 +1,8 @@
 import java.util.LinkedList;
 
 public class Rook  extends Piece{
-    protected Rook(boolean isWhite, int pos) {
-        super(isWhite, pos);
+    protected Rook(boolean isWhite) {
+        super(isWhite);
     }
 
     public static boolean isMoveValid(int pos, int target, boolean isWhite) {

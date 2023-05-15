@@ -1,8 +1,8 @@
 import java.util.LinkedList;
 
 public class Queen  extends Piece{
-    protected Queen(boolean isWhite, int pos) {
-        super(isWhite, pos);
+    protected Queen(boolean isWhite) {
+        super(isWhite);
     }
 
     public static boolean isMoveValid(int pos, int target, boolean isWhite) {

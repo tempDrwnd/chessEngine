@@ -47,10 +47,10 @@ public class PromotionPanel extends JPanel {
             knight.setIcon(KnightBlack);
         }
         //ActionListeners so clicking the Buttons actually does something
-        queen.addActionListener(e -> Piece.promote(new Queen(white, (byte)( 7*line + file))));
-        rook.addActionListener(e -> Piece.promote(new Rook(white, (byte)( 7*line + file))));
-        bishop.addActionListener(e -> Piece.promote(new Bishop(white, (byte)( 7*line + file))));
-        knight.addActionListener(e -> Piece.promote(new Knight(white, (byte)( 7*line + file))));
+        queen.addActionListener(e -> Piece.promote(new Queen(white),(line << 3) + file));
+        rook.addActionListener(e -> Piece.promote(new Rook(white),(line << 3) + file));
+        bishop.addActionListener(e -> Piece.promote(new Bishop(white),(line << 3) + file));
+        knight.addActionListener(e -> Piece.promote(new Knight(white),(line << 3) + file));
 
         setVisible(true);   //Makes the panel visible
     }

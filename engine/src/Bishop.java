@@ -1,8 +1,8 @@
 import java.util.LinkedList;
 
 public class Bishop  extends Piece{
-    protected Bishop(boolean isWhite, int pos) {
-        super(isWhite, pos);
+    protected Bishop(boolean isWhite) {
+        super(isWhite);
     }
 
     public static boolean isMoveValid(int pos, int target, boolean isWhite) {

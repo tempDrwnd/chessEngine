@@ -1,8 +1,8 @@
 import java.util.LinkedList;
 
 public class King extends Piece{
-    protected King(boolean isWhite, int pos) {
-        super(isWhite, pos);
+    protected King(boolean isWhite) {
+        super(isWhite);
     }
 
     public static boolean isMoveValid(int pos, int target, boolean isWhite) {
@@ -13,14 +13,14 @@ public class King extends Piece{
         LinkedList<Integer> moves = new LinkedList<>();
         int pos_ = pos << 6;
 
-        if(isFreeSquare( (pos-9), pos, isWhite) && (pos >> 3) != 0 && pos % 8 != 0)     moves.add(pos_ + (pos-9));
-        if(isFreeSquare( (pos-8), pos, isWhite) && (pos >> 3) != 0)                     moves.add(pos_ + (pos-8));
-        if(isFreeSquare( (pos-7), pos, isWhite) && (pos >> 3) != 0 && pos % 8 != 7)     moves.add(pos_ + (pos-7));
-        if(isFreeSquare( (pos-1), pos, isWhite) && pos % 8 != 0)                      moves.add(pos_ + (pos-1));
-        if(isFreeSquare( (pos+1), pos, isWhite) && pos % 8 != 7)                      moves.add(pos_ + (pos+1));
-        if(isFreeSquare( (pos+7), pos, isWhite) && (pos >> 3) != 7 && pos % 8 != 0)     moves.add(pos_ + (pos+7));
-        if(isFreeSquare( (pos+8), pos, isWhite) && (pos >> 3) != 7)                     moves.add(pos_ + (pos+8));
-        if(isFreeSquare( (pos+9), pos, isWhite) && (pos >> 3) != 7 && pos % 8 != 7)     moves.add(pos_ + (pos+9));
+        if((pos >> 3) != 0 && pos % 8 != 0 && isFreeSquare( (pos-9), pos, isWhite))     moves.add(pos_ + (pos-9));
+        if((pos >> 3) != 0 && isFreeSquare( (pos-8), pos, isWhite))                     moves.add(pos_ + (pos-8));
+        if((pos >> 3) != 0 && pos % 8 != 7 && isFreeSquare( (pos-7), pos, isWhite))     moves.add(pos_ + (pos-7));
+        if(pos % 8 != 0 && isFreeSquare( (pos-1), pos, isWhite))                        moves.add(pos_ + (pos-1));
+        if(pos % 8 != 7 && isFreeSquare( (pos+1), pos, isWhite))                        moves.add(pos_ + (pos+1));
+        if((pos >> 3) != 7 && pos % 8 != 0 && isFreeSquare( (pos+7), pos, isWhite))     moves.add(pos_ + (pos+7));
+        if((pos >> 3) != 7 && isFreeSquare( (pos+8), pos, isWhite))                     moves.add(pos_ + (pos+8));
+        if((pos >> 3) != 7 && pos % 8 != 7 && isFreeSquare( (pos+9), pos, isWhite))     moves.add(pos_ + (pos+9));
 
         return moves;
     }

@@ -11,14 +11,14 @@ public class Main {
 
         int squareSize = 100;
         //Default board
-        Piece.board = new Piece[][]{{new Rook(true, 0), new Knight(true, 1), new Bishop(true, 2), new King(true, 3), new Queen(true, 4), new Bishop(true, 5), new Knight(true, 6), new Rook(true, 7)},
-                {new Pawn(true, 7), new Pawn(true, 8), new Pawn(true, 9), new Pawn(true, 10), new Pawn(true, 11), new Pawn(true, 12), new Pawn(true, 13), new Pawn(true, 14)},
+        Piece.board = new Piece[][]{{new Rook(true), new Knight(true), new Bishop(true), new King(true), new Queen(true), new Bishop(true), new Knight(true), new Rook(true)},
+                {new Pawn(true), new Pawn(true), new Pawn(true), new Pawn(true), new Pawn(true), new Pawn(true), new Pawn(true), new Pawn(true)},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
-                {new Pawn(false, 47), new Pawn(false, 48), new Pawn(false, 49), new Pawn(false, 50), new Pawn(false, 51), new Pawn(false, 53), new Pawn(false, 54), new Pawn(false, 55)},
-                {new Rook(false, 56), new Knight(false, 57), new Bishop(false, 58), new King(false, 59), new Queen(false, 60), new Bishop(false, 61), new Knight(false, 62), new Rook(false, 63)}};
+                {new Pawn(false), new Pawn(false), new Pawn(false), new Pawn(false), new Pawn(false), new Pawn(false), new Pawn(false), new Pawn(false)},
+                {new Rook(false), new Knight(false), new Bishop(false), new King(false), new Queen(false), new Bishop(false), new Knight(false), new Rook(false)}};
 
         updateSBoard();
         MyPanel panel = new MyPanel(squareSize, Piece.board);       //Creates the panel

@@ -5,12 +5,10 @@ public abstract class Piece {
     public static Piece[][] board = new Piece[8][8];           //Current board
 
     public final boolean isWhite;   //Whether a piece is white
-    protected Piece(boolean isWhite, int pos) {
+    protected Piece(boolean isWhite) {
         this.isWhite = isWhite;
-        this.pos = pos;
     }
     public abstract String getType();
-    public int pos;
 
     public static boolean isInCheck(boolean white){
         int kingPos = -1;
@@ -113,15 +111,12 @@ public abstract class Piece {
     }
     
     public static boolean isFreeSquare(int square, int origin, boolean isWhite){
-        System.out.println("ha");
         if(square < 0 || square > 63){
             return false;
         }
         if(Main.sBoard.charAt(square) != '0' && Piece.whitePiece(Main.sBoard.charAt(square)) == isWhite){
-            System.out.println("here?");
             return false;
         }
-        System.out.println("ho");
         char temp = Main.sBoard.charAt(square);
         StringBuilder s = new StringBuilder(Main.sBoard);
 
@@ -131,7 +126,6 @@ public abstract class Piece {
         Main.sBoard = s.toString();
 
         if(isInCheck(isWhite)){
-            System.out.println("last");
             s.setCharAt(origin, s.charAt(square));
             s.setCharAt(square, temp);
             Main.sBoard = s.toString();
@@ -152,9 +146,9 @@ public abstract class Piece {
     }
 
     public static boolean containsMove(int[] moves, int move){
-        System.out.println(moves.length);
+        System.out.println(moves.length + " l");
         for(int i : moves){
-            System.out.println(i);
+            System.out.println(i % 64);
             if(i == move){
                 return true;
             }
@@ -162,8 +156,8 @@ public abstract class Piece {
         return false;
     }
     
-    public static void promote(Piece piece) {
-        board[piece.pos >> 3][piece.pos % 8] = piece;  //Promotes the Pawn
+    public static void promote(Piece piece, int pos) {
+        board[pos >> 3][pos % 8] = piece;  //Promotes the Pawn
         Main.promotionPanel.setVisible(false);  //Hides the PromotionPanel
         Main.promotionPanel.panel.repaint();    //Repaints the board
     }
