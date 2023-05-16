@@ -28,7 +28,7 @@ public class PromotionPanel extends JPanel {
             final ImageIcon BishopWhite = new ImageIcon("BishopWhite.png");
             final ImageIcon KnightWhite = new ImageIcon("KnightWhite.png");
 
-            //Sets teh Icons on the Buttons
+            //Sets the Icons on the Buttons
             queen.setIcon(QueenWhite);
             rook.setIcon(RookWhite);
             bishop.setIcon(BishopWhite);
@@ -40,7 +40,7 @@ public class PromotionPanel extends JPanel {
             final ImageIcon BishopBlack = new ImageIcon("BishopBlack.png");
             final ImageIcon KnightBlack = new ImageIcon("KnightBlack.png");
 
-            //Sets teh Icons on the Buttons
+            //Sets the Icons on the Buttons
             queen.setIcon(QueenBlack);
             rook.setIcon(RookBlack);
             bishop.setIcon(BishopBlack);

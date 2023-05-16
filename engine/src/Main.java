@@ -21,7 +21,7 @@ public class Main {
                 {new Rook(false), new Knight(false), new Bishop(false), new King(false), new Queen(false), new Bishop(false), new Knight(false), new Rook(false)}};
 
         updateSBoard();
-        MyPanel panel = new MyPanel(squareSize, Piece.board);       //Creates the panel
+        MyPanel panel = new MyPanel(squareSize, Piece.board);           //Creates the panel
         MyMouseListener mouse = new MyMouseListener(squareSize, panel); //creates the MouseListener
         promotionPanel.setPanel(panel);
 
