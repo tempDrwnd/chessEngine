@@ -18,8 +18,8 @@ public class Knight  extends Piece{
         if((pos >> 3) > 1 && pos % 8 > 0 && isFreeSquare( (pos-17), pos, isWhite, board))      moves.add((pos_ + pos-17));
         if((pos >> 3) > 1 && pos % 8 < 7 && isFreeSquare( (pos-15), pos, isWhite, board))      moves.add((pos_ + pos-15));
         if((pos >> 3) > 0 && pos % 8 > 1 && isFreeSquare( (pos-10), pos, isWhite, board))      moves.add((pos_ + pos-10));
-        if((pos >> 3) > 0 && pos % 8 < 6 && isFreeSquare( (pos-6), pos, isWhite, board))       moves.add((pos_ + pos-6));
-        if((pos >> 3) < 7 && pos % 8 > 1 && isFreeSquare( (pos+6), pos, isWhite, board))       moves.add((pos_ + pos+6));
+        if((pos >> 3) > 0 && pos % 8 < 6 && isFreeSquare( (pos-6 ), pos, isWhite, board))      moves.add((pos_ + pos-6 ));
+        if((pos >> 3) < 7 && pos % 8 > 1 && isFreeSquare( (pos+6 ), pos, isWhite, board))      moves.add((pos_ + pos+6 ));
         if((pos >> 3) < 7 && pos % 8 < 6 && isFreeSquare( (pos+10), pos, isWhite, board))      moves.add((pos_ + pos+10));
         if((pos >> 3) < 6 && pos % 8 > 0 && isFreeSquare( (pos+15), pos, isWhite, board))      moves.add((pos_ + pos+15));
         if((pos >> 3) < 6 && pos % 8 < 7 && isFreeSquare( (pos+17), pos, isWhite, board))      moves.add((pos_ + pos+17));

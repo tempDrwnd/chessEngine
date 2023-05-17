@@ -55,12 +55,12 @@ public class MyMouseListener implements MouseListener {
 
             if (true) {   //Checks if the move is valid
                 //Don't worry about it, it's debug
-                System.out.println(Piece.containsMove(Piece.toArray(Queen.getValidMoves((selectedLine << 3) + selectedFile, Piece.board[selectedLine][selectedFile].isWhite, Main.sBoard)), (selectedLine << 9 ) + (selectedFile << 6 ) + (temp2 << 3) + temp1));
-                System.out.println(Queen.isMoveValid((selectedLine << 3) + selectedFile, (temp2 << 3) + temp1, !Piece.board[selectedLine][selectedFile].isWhite, Main.sBoard));
+                System.out.println(Piece.containsMove(Piece.toArray(Pawn.getValidMoves((selectedLine << 3) + selectedFile, Piece.board[selectedLine][selectedFile].isWhite, Main.sBoard)), (selectedLine << 9 ) + (selectedFile << 6 ) + (temp2 << 3) + temp1));
+                System.out.println(Pawn.isMoveValid((selectedLine << 3) + selectedFile, (temp2 << 3) + temp1, Piece.board[selectedLine][selectedFile].isWhite, Main.sBoard));
 
                 Piece.board[temp2][temp1] = Piece.board[selectedLine][selectedFile];//Makes the move
                 Piece.board[selectedLine][selectedFile] = null;
-                Main.updateSBoard();
+                Main.updateSBoard(selectedLine, selectedFile, temp2, temp1);
 
                 selectedFile = -1;
                 selectedLine = -1;

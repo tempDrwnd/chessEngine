@@ -20,7 +20,7 @@ public class Main {
                 {new Pawn(false), new Pawn(false), new Pawn(false), new Pawn(false), new Pawn(false), new Pawn(false), new Pawn(false), new Pawn(false)},
                 {new Rook(false), new Knight(false), new Bishop(false), new King(false), new Queen(false), new Bishop(false), new Knight(false), new Rook(false)}};
 
-        updateSBoard();
+        updateSBoard(0,0,0,0);
         MyPanel panel = new MyPanel(squareSize, Piece.board);           //Creates the panel
         MyMouseListener mouse = new MyMouseListener(squareSize, panel); //creates the MouseListener
         promotionPanel.setPanel(panel);
@@ -48,7 +48,7 @@ public class Main {
         frame.setVisible(true);
     }
 
-    public static void updateSBoard(){
+    public static void updateSBoard(int originLine, int originFile, int targetLine, int targetFile){
         StringBuilder stringBuilder = new StringBuilder();
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
@@ -61,6 +61,7 @@ public class Main {
                 }
             }
         }
+        stringBuilder.append(((originLine << 9) + (originFile << 6) + (targetLine << 3) + targetFile));
         sBoard = stringBuilder.toString();
     }
 }
