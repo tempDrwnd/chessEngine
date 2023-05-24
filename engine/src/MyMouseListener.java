@@ -58,9 +58,12 @@ public class MyMouseListener implements MouseListener {
                 System.out.println(Piece.containsMove(Piece.toArray(Pawn.getValidMoves((selectedLine << 3) + selectedFile, Piece.board[selectedLine][selectedFile].isWhite, Main.sBoard)), (selectedLine << 9 ) + (selectedFile << 6 ) + (temp2 << 3) + temp1));
                 System.out.println(Pawn.isMoveValid((selectedLine << 3) + selectedFile, (temp2 << 3) + temp1, Piece.board[selectedLine][selectedFile].isWhite, Main.sBoard));
 
-                Piece.board[temp2][temp1] = Piece.board[selectedLine][selectedFile];//Makes the move
-                Piece.board[selectedLine][selectedFile] = null;
-                Main.updateSBoard(selectedLine, selectedFile, temp2, temp1);
+                Main.sBoard = Piece.move((selectedLine << 3) + selectedFile, (temp2 << 3) + temp1, Main.sBoard);
+                Piece.updateBoard(Main.sBoard);
+
+                //Piece.board[temp2][temp1] = Piece.board[selectedLine][selectedFile];//Makes the move
+                //Piece.board[selectedLine][selectedFile] = null;
+                //Main.updateSBoard(selectedLine, selectedFile, temp2, temp1);
 
                 selectedFile = -1;
                 selectedLine = -1;

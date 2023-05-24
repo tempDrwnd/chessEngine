@@ -150,6 +150,63 @@ public abstract class Piece {
         return false;
     }
 
+    public static String move(int origin, int target, String board){
+        StringBuilder  s = new StringBuilder(board.substring(0, 64));
+        s.setCharAt(target, s.charAt(origin));
+        s.setCharAt(origin, '0');
+
+        //En-Passant Check
+        if(s.charAt(target) == 'p' || s.charAt(target) == 'P'){
+            int lastMove = Integer.parseInt(board.substring(64));
+            boolean hasLineMovement = Math.abs((origin % 8) - (target % 8)) == 1;
+            if((target >> 3) - (origin >> 3) == 1 && hasLineMovement && board.charAt(lastMove % 64) == 'p'
+                    && Math.abs(convertMoveFormat(lastMove)[0] - convertMoveFormat(lastMove)[2]) == 2 && target % 8 == convertMoveFormat(lastMove)[3]){
+                s.setCharAt(target - 8, '0');
+            }
+            if((target >> 3) - (origin >> 3) == -1 && hasLineMovement && board.charAt(lastMove % 64) == 'P'
+                    && Math.abs(convertMoveFormat(lastMove)[0] - convertMoveFormat(lastMove)[2]) == 2 && target % 8 == convertMoveFormat(lastMove)[3]){
+                s.setCharAt(target + 8, '0');
+            }
+        }
+        s.append((origin << 6) + target);
+        return  s.toString();
+    }
+
+    public static void updateBoard(String board){
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                char c = board.charAt(i * 8 + j);
+                if(c == '0'){
+                    Piece.board[i][j] = null;
+                }if(c == 'p'){
+                    Piece.board[i][j] = new Pawn(false);
+                }if(c == 'P'){
+                    Piece.board[i][j] = new Pawn(true);
+                }if(c == 'r'){
+                    Piece.board[i][j] = new Rook(false);
+                } if(c == 'R'){
+                    Piece.board[i][j] = new Rook(true);
+                } if(c == 'k'){
+                    Piece.board[i][j] = new King(false);
+                } if(c == 'K'){
+                    Piece.board[i][j] = new King(true);
+                } if(c == 'q'){
+                    Piece.board[i][j] = new Queen(false);
+                } if(c == 'Q'){
+                    Piece.board[i][j] = new Queen(true);
+                } if(c == 'b'){
+                    Piece.board[i][j] = new Bishop(false);
+                } if(c == 'B'){
+                    Piece.board[i][j] = new Bishop(true);
+                } if(c == 'n'){
+                    Piece.board[i][j] = new Knight(false);
+                } if(c == 'N'){
+                    Piece.board[i][j] = new Knight(true);
+                }
+            }
+        }
+    }
+
     public static void promote(Piece piece, int pos) {
         board[pos >> 3][pos % 8] = piece;  //Promotes the Pawn
         Main.promotionPanel.setVisible(false);  //Hides the PromotionPanel

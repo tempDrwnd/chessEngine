@@ -22,11 +22,12 @@ public class Pawn extends Piece {
         if ((target >> 3) - (pos >> 3) == 2 && (pos % 8) - (target % 8) == 0 && (pos >> 3) == 1 && !isSquareBlocked(target, board) && !isSquareBlocked(pos + 8, board)) {
             return true;
         }
-        if ((target >> 3) - (pos >> 3) == 1 && Math.abs((pos % 8) - (target % 8)) == 1 && isSquareBlocked(target, board)) {
+        boolean hasLineMovement = Math.abs((pos % 8) - (target % 8)) == 1;
+        if ((target >> 3) - (pos >> 3) == 1 && hasLineMovement && isSquareBlocked(target, board)) {
             return true;
         }
         int lastMove = Integer.parseInt(board.substring(64));
-        return (target >> 3) - (pos >> 3) == 1 && Math.abs((pos % 8) - (target % 8)) == 1 && board.charAt(lastMove % 64) == 'p'
+        return (target >> 3) - (pos >> 3) == 1 && hasLineMovement && board.charAt(lastMove % 64) == 'p'
                 && Math.abs(convertMoveFormat(lastMove)[0] - convertMoveFormat(lastMove)[2]) == 2 && target % 8 == convertMoveFormat(lastMove)[3];
     }
 
@@ -37,11 +38,12 @@ public class Pawn extends Piece {
         if ((target >> 3) - (pos >> 3) == -2 && (pos % 8) - (target % 8) == 0 && (pos >> 3) == 6 && !isSquareBlocked(target, board) && !isSquareBlocked(pos - 8, board)) {
             return true;
         }
-        if ((target >> 3) - (pos >> 3) == -1 && Math.abs((pos % 8) - (target % 8)) == 1 && isSquareBlocked(target, board)) {
+        boolean hasLineMovement = Math.abs((pos % 8) - (target % 8)) == 1;
+        if ((target >> 3) - (pos >> 3) == -1 && hasLineMovement && isSquareBlocked(target, board)) {
             return true;
         }
         int lastMove = Integer.parseInt(board.substring(64));
-        return (target >> 3) - (pos >> 3) == -1 && Math.abs((pos % 8) - (target % 8)) == 1 && board.charAt(lastMove % 64) == 'P'
+        return (target >> 3) - (pos >> 3) == -1 && hasLineMovement && board.charAt(lastMove % 64) == 'P'
                 && Math.abs(convertMoveFormat(lastMove)[0] - convertMoveFormat(lastMove)[2]) == 2 && target % 8 == convertMoveFormat(lastMove)[3];
     }
 
