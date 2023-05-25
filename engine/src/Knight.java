@@ -8,7 +8,7 @@ public class Knight  extends Piece{
     public static boolean isMoveValid(int pos, int target, boolean isWhite, String board) {
         int tmp = Math.abs((pos >> 3) - (target >> 3));
         int tmp2 = Math.abs((pos % 8) - (target % 8));
-        return tmp + tmp2 == 3 && tmp != 0 && tmp2 != 0 && (whitePiece(board.charAt(target)) == isWhite || board.charAt(target) == '0');
+        return tmp + tmp2 == 3 && tmp != 0 && tmp2 != 0 && (whitePiece(board.charAt(target)) != isWhite || board.charAt(target) == '0');
     }
 
     public static LinkedList<Integer> getValidMoves(int pos, boolean isWhite, String board) {

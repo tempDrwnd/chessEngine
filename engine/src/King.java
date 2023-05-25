@@ -6,7 +6,7 @@ public class King extends Piece{
     }
 
     public static boolean isMoveValid(int pos, int target, boolean isWhite, String board) {
-        return Math.abs((pos >> 3) - (target >> 3)) <= 1 && Math.abs((pos % 8) - (target % 8)) <= 1 && (whitePiece(board.charAt(target)) == isWhite || board.charAt(target) == '0');
+        return Math.abs((pos >> 3) - (target >> 3)) <= 1 && Math.abs((pos % 8) - (target % 8)) <= 1 && (whitePiece(board.charAt(target)) != isWhite || board.charAt(target) == '0');
     }
 
     public static LinkedList<Integer> getValidMoves(int pos, boolean isWhite, String board) {

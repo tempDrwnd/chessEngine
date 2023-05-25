@@ -6,7 +6,7 @@ public class Queen  extends Piece{
     }
 
     public static boolean isMoveValid(int pos, int target, boolean isWhite, String board) {
-        if(whitePiece(board.charAt(target)) != isWhite && board.charAt(target) != '0'){
+        if(whitePiece(board.charAt(target)) == isWhite && board.charAt(target) != '0'){
             return false;
         }
         return validRookMove(pos, target, board) || validBishopMove(pos, target, board);
@@ -72,7 +72,7 @@ public class Queen  extends Piece{
             tmp++;
         }
         tmp = 1;
-        while(pos % 8 - tmp < 8){
+        while(pos % 8 + tmp < 8){
             if(isFreeSquare(pos + tmp, pos, isWhite, board)) moves.add(pos_ + pos + tmp);
             if(isSquareBlocked(pos + tmp, board)) break;
             tmp++;

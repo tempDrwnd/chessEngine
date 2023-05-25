@@ -4,6 +4,8 @@ import java.util.Locale;
 
 public class Main {
 
+    public static Bot testBot = new Bot(new double[]{1,1,1,1,1,1,1,1,1,1,1,1,1,1}, false);
+
     public static PromotionPanel promotionPanel = new PromotionPanel();
     public static String sBoard;
 

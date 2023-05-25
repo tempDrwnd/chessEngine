@@ -1,5 +1,6 @@
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLOutput;
 
 public class MyMouseListener implements MouseListener {
 
@@ -52,35 +53,41 @@ public class MyMouseListener implements MouseListener {
             selectedLine = -1;
         }
         if (nameInProcess) {
+            System.out.println("here");
+            //Don't worry about it, it's debug
+            System.out.println(Piece.containsMove(Piece.toArray(Pawn.getValidMoves((selectedLine << 3) + selectedFile, Piece.board[selectedLine][selectedFile].isWhite, Main.sBoard)), (selectedLine << 9 ) + (selectedFile << 6 ) + (temp2 << 3) + temp1));
+            System.out.println(Pawn.isMoveValid((selectedLine << 3) + selectedFile, (temp2 << 3) + temp1, Piece.board[selectedLine][selectedFile].isWhite, Main.sBoard));
 
-            if (true) {   //Checks if the move is valid
-                //Don't worry about it, it's debug
-                System.out.println(Piece.containsMove(Piece.toArray(Pawn.getValidMoves((selectedLine << 3) + selectedFile, Piece.board[selectedLine][selectedFile].isWhite, Main.sBoard)), (selectedLine << 9 ) + (selectedFile << 6 ) + (temp2 << 3) + temp1));
-                System.out.println(Pawn.isMoveValid((selectedLine << 3) + selectedFile, (temp2 << 3) + temp1, Piece.board[selectedLine][selectedFile].isWhite, Main.sBoard));
+            Main.sBoard = Piece.move((selectedLine << 3) + selectedFile, (temp2 << 3) + temp1, Main.sBoard);
+            Piece.updateBoard(Main.sBoard);
 
-                Main.sBoard = Piece.move((selectedLine << 3) + selectedFile, (temp2 << 3) + temp1, Main.sBoard);
-                Piece.updateBoard(Main.sBoard);
-
-                //Piece.board[temp2][temp1] = Piece.board[selectedLine][selectedFile];//Makes the move
-                //Piece.board[selectedLine][selectedFile] = null;
-                //Main.updateSBoard(selectedLine, selectedFile, temp2, temp1);
-
-                selectedFile = -1;
-                selectedLine = -1;
-
-            } else if (Piece.board[temp2][temp1] != null) {   //Selects the clicked Piece since moving the selected Piece there is invalid
-                selectedFile = temp1;
-                selectedLine = temp2;
-
-            } else {  //If clicked square is null and moving there is invalid selected Piece is unselected
-                selectedFile = -1;
-                selectedLine = -1;
+            selectedFile = -1;
+            selectedLine = -1;
+            /*
+            //Debug to see if valid moves n shit
+            System.out.println(Main.sBoard);
+            int[] moves = Pawn.getAllValidMoves(true, Main.sBoard);
+            System.out.println(moves.length);
+            for(int i = 0; i < moves.length; i++){
+                //System.out.println(Pawn.isMoveValid(moves[i] % 64, moves[i] >> 6, true, Main.sBoard));
+                if(!Pawn.isMoveValid(moves[i] >> 6, moves[i] % 64, true, Main.sBoard)){
+                    int[] m = Piece.convertMoveFormat(moves[i]);
+                    System.out.println("lo"+ m[0] +" fo"+m[1]+" lt"+m[2]+" ft"+m[3]);
+                }
             }
+            */
+
+            int move = Main.testBot.getBestMove(Main.sBoard, 3);
+            int[] m = Piece.convertMoveFormat(move);
+            Main.sBoard = Piece.move(move >> 6, move % 64, Main.sBoard);
+            Piece.updateBoard(Main.sBoard);
+            System.out.println("lo"+ m[0] +" fo"+m[1]+" lt"+m[2]+" ft"+m[3]);
         }
 
         panel.setSelectedFile(selectedFile);
         panel.setSelectedLine(selectedLine);
         panel.repaint();
+
     }
 
     @Override

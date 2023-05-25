@@ -65,6 +65,23 @@ public class Evaluate {
         this.value_kingOpposition = value_kingOpposition;
     }
 
+    public Evaluate(double[] values){
+        this.value_passedPawn = values[0];
+        this.value_isolatedPawn = values[1];
+        this.value_stackedPawn = values[2];
+        this.value_centralPawn = values[3];
+        this.value_advancedPawn = values[4];
+        this.value_centralKnight = values[5];
+        this.value_centralRook = values[6];
+        this.value_seventhRankRook = values[7];
+        this.value_pawnChain = values[8];
+        this.value_activity = values[9];
+        this.value_area = values[10];
+        this.value_kingSafety = values[11];
+        this.value_kingLead = values[12];
+        this.value_kingOpposition = values[13];
+    }
+
 
     public double evaluate(char[][] array, int[][] whiteMoves, int[][] blackMoves){
         this.board = array;

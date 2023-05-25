@@ -6,7 +6,7 @@ public class Bishop  extends Piece{
     }
 
     public static boolean isMoveValid(int pos, int target, boolean isWhite, String board) {
-        if(whitePiece(board.charAt(target)) != isWhite && board.charAt(target) != '0'){
+        if(whitePiece(board.charAt(target)) == isWhite && board.charAt(target) != '0'){
             return false;
         }
         int abs = Math.abs((pos % 8) - (target % 8));

@@ -64,9 +64,9 @@ public class Pawn extends Piece {
         if (isFreeSquare(pos + 8, pos, true, board) && !isSquareBlocked(pos + 8, board)) moves.add(pos_ + pos + 8);
         if (pos >> 3 == 1 && isFreeSquare(pos + 16, pos, true, board) && !isSquareBlocked(pos + 16, board) && !isSquareBlocked(pos + 8, board))
             moves.add(pos_ + pos + 16);
-        if (board.charAt(pos + 7) != '0' && isSquareBlocked(pos + 7, board) && bool1)
+        if (isSquareBlocked(pos + 7, board) && board.charAt(pos + 7) != '0' && bool1)
             moves.add(pos_ + pos + 7);
-        if (board.charAt(pos + 9) != '0' && isSquareBlocked(pos + 9, board) && bool2)
+        if (isSquareBlocked(pos + 9, board) && board.charAt(pos + 9) != '0' && bool2)
             moves.add(pos_ + pos + 9);
 
         int lastMove = Integer.parseInt(board.substring(64));
@@ -92,9 +92,9 @@ public class Pawn extends Piece {
         if (isFreeSquare(pos - 8, pos, false, board) && !isSquareBlocked(pos - 8, board)) moves.add(pos_ + pos - 8);
         if (pos >> 3 == 6 && isFreeSquare(pos - 16, pos, false, board) && !isSquareBlocked(pos - 16, board) && !isSquareBlocked(pos - 8, board))
             moves.add(pos_ + pos - 16);
-        if (board.charAt(pos - 7) != '0' && isSquareBlocked(pos - 7, board) && bool1)
+        if (isSquareBlocked(pos - 7, board) && board.charAt(pos - 7) != '0' && bool1)
             moves.add(pos_ + pos - 7);
-        if (board.charAt(pos - 9) != '0' && isSquareBlocked(pos - 9, board) && bool2)
+        if (isSquareBlocked(pos - 9, board) && board.charAt(pos - 9) != '0' && bool2)
             moves.add(pos_ + pos - 9);
 
         int lastMove = Integer.parseInt(board.substring(64));
