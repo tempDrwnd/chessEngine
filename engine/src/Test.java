@@ -21,13 +21,15 @@ public class Test {
         int n = 10000;
 
         //fixedTest(board, n);
-        randTest(n);
+        fixedTest(board, 1);
 
     }
 
 
     public static void fixedTest(char[][] board, int n){
         Instant start = Instant.now();
+        int[][] moves1 = {{1, 0, 2, 2}, {2, 1, 2, 2}, {5, 0, 4, 2}, {4, 0, 4, 1}};
+        int[][] moves2 = {{1, 7, 2, 5}, {2, 6, 2, 5}, {5, 7, 4, 5}, {4, 7, 4, 6}};
 
         for (int i = 0; i<n; i++) {
             Evaluate bot = new Evaluate(
@@ -46,8 +48,8 @@ public class Test {
                     0.5,
                     0.5
             );
-            //double eval = bot.evaluate(board);
-            //System.out.println(eval);
+            double eval = bot.evaluate(board, moves1, moves2);
+            System.out.println(eval);
         }
 
         Instant end = Instant.now();

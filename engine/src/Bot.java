@@ -13,7 +13,6 @@ public class Bot {
         evaluate = new Evaluate(values);
     }
 
-    //Same as getEvaluation, but returns the move not the eval
     public int getBestMove(String board, int remainingDepth){
         positions.clear();
         int[] moves = Piece.getAllValidMoves(isWhite, board);
@@ -23,9 +22,9 @@ public class Bot {
 
         if(isWhite) {
             int maxEvalIndex = 0;
-            double maxEval = -1000000000d;
+            double maxEval = -100000d;
             for (int i = 0; i < moves.length; i++) {
-                double eval = getMinEval(Piece.move(moves[i] >> 6, moves[i] % 64, board), remainingDepth - 1);
+                double eval = getMinEval(Piece.move(moves[i] >> 6, moves[i] % 64, board), remainingDepth - 1, false);
                 if (eval >= maxEval) {
                     maxEval = eval;
                     maxEvalIndex = i;
@@ -34,9 +33,9 @@ public class Bot {
             return moves[maxEvalIndex];
         }
         int minEvalIndex = 0;
-        double minEval = 1000000000d;
+        double minEval = 100000d;
         for (int i = 0; i < moves.length; i++) {
-            double eval = getMaxEval(Piece.move(moves[i] >> 6, moves[i] % 64, board), remainingDepth - 1);
+            double eval = getMaxEval(Piece.move(moves[i] >> 6, moves[i] % 64, board), remainingDepth - 1, true);
             if (eval <= minEval) {
                 minEval = eval;
                 minEvalIndex = i;
@@ -45,22 +44,23 @@ public class Bot {
         return moves[minEvalIndex];
     }
 
-    public double getMinEval(String board, int remainingDepth){
+    public double getMinEval(String board, int remainingDepth, boolean isWhite){
         //Recursion break
         if(remainingDepth <= 0){
-            return evaluate(Piece.toCharArray(board), Piece.convertMoveFormat(Piece.getAllValidMoves(true, board)),Piece.convertMoveFormat(Piece.getAllValidMoves(false, board)));
+            return evaluate.evaluate(Piece.toCharArray(board), Piece.convertMoveFormat(Piece.getAllValidMoves(true, board)),Piece.convertMoveFormat(Piece.getAllValidMoves(false, board)));
         }
         int[] moves = Piece.getAllValidMoves(isWhite, board);
-        double minEval = 1000000000d;
+        double minEval = 100000d;
         for (int move : moves) {
             String tempBoard = Piece.move(move >> 6, move % 64, board);
             //Makes sure of no duplicate Positions
             if (positions.containsValue(tempBoard)) {
+                System.out.println("skip");
                 continue;
             }
             positions.put(move, tempBoard);
 
-            double eval = getMaxEval(tempBoard, remainingDepth - 1);
+            double eval = getMaxEval(tempBoard, remainingDepth - 1, !isWhite);
             if (eval <= minEval) {
                 minEval = eval;
             }
@@ -68,22 +68,23 @@ public class Bot {
         return minEval;
     }
 
-    public double getMaxEval(String board, int remainingDepth){
+    public double getMaxEval(String board, int remainingDepth, boolean isWhite){
         //Recursion break
         if(remainingDepth <= 0){
-            return evaluate(Piece.toCharArray(board), Piece.convertMoveFormat(Piece.getAllValidMoves(true, board)),Piece.convertMoveFormat(Piece.getAllValidMoves(false, board)));
+            return evaluate.evaluate(Piece.toCharArray(board), Piece.convertMoveFormat(Piece.getAllValidMoves(true, board)),Piece.convertMoveFormat(Piece.getAllValidMoves(false, board)));
         }
-        int[] moves = Piece.getAllValidMoves(!isWhite, board);
-        double maxEval = -1000000000d;
+        int[] moves = Piece.getAllValidMoves(isWhite, board);
+        double maxEval = -100000d;
         for (int move : moves) {
             String tempBoard = Piece.move(move >> 6, move % 64, board);
             //Makes sure of no duplicate Positions
             if (positions.containsValue(tempBoard)) {
+                System.out.println("skip");
                 continue;
             }
             positions.put(move, tempBoard);
 
-            double eval = getMinEval(tempBoard, remainingDepth - 1);
+            double eval = getMinEval(tempBoard, remainingDepth - 1, !isWhite);
             if (eval >= maxEval) {
                 maxEval = eval;
             }

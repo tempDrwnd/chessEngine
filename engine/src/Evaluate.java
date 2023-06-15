@@ -86,6 +86,16 @@ public class Evaluate {
     public double evaluate(char[][] array, int[][] whiteMoves, int[][] blackMoves){
         this.board = array;
 
+        //Resets the evaluation values, so you can call this method multiple times per instance
+        //That's why the evaluation was off the charts
+        value_White = 0;
+        value_Black = 0;
+        whiteActivity = 0;
+        blackActivity = 0;
+        whiteArea = 0;
+        blackArea = 0;
+        E = 0;
+
         for (int y = 0; y<8; y++) {
             for (int x = 0; x<8; x++) {
                 if (Character.toLowerCase(board[y][x]) == 'p'){

@@ -53,7 +53,6 @@ public class MyMouseListener implements MouseListener {
             selectedLine = -1;
         }
         if (nameInProcess) {
-            System.out.println("here");
             //Don't worry about it, it's debug
             System.out.println(Piece.containsMove(Piece.toArray(Pawn.getValidMoves((selectedLine << 3) + selectedFile, Piece.board[selectedLine][selectedFile].isWhite, Main.sBoard)), (selectedLine << 9 ) + (selectedFile << 6 ) + (temp2 << 3) + temp1));
             System.out.println(Pawn.isMoveValid((selectedLine << 3) + selectedFile, (temp2 << 3) + temp1, Piece.board[selectedLine][selectedFile].isWhite, Main.sBoard));
@@ -63,6 +62,7 @@ public class MyMouseListener implements MouseListener {
 
             selectedFile = -1;
             selectedLine = -1;
+
             /*
             //Debug to see if valid moves n shit
             System.out.println(Main.sBoard);

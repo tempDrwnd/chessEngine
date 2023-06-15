@@ -237,6 +237,12 @@ public abstract class Piece {
         return result;
     }
 
+    public static void printBoard(String board){
+        for(int i = 0; i < 8; i++){
+            System.out.println(board.substring(8 * i, 8 * (i + 1)));
+        }
+    }
+
     public static void promote(Piece piece, int pos) {
         board[pos >> 3][pos % 8] = piece;  //Promotes the Pawn
         Main.promotionPanel.setVisible(false);  //Hides the PromotionPanel
