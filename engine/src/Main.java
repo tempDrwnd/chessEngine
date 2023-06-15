@@ -4,7 +4,7 @@ import java.util.Locale;
 
 public class Main {
 
-    public static Bot testBot = new Bot(new double[]{1,1,1,1,1,1,1,1,1,1,1,1,1,1}, false);
+    public static Bot testBot = new Bot(new double[]{1657,156756,-99991,1567,175646,1000,1567567,756751,567561,156756,15,15,15674567,16876}, false);
 
     public static PromotionPanel promotionPanel = new PromotionPanel();
     public static String sBoard;
