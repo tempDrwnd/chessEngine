@@ -1,6 +1,5 @@
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.SQLOutput;
 
 public class MyMouseListener implements MouseListener {
 
@@ -54,34 +53,28 @@ public class MyMouseListener implements MouseListener {
         }
         if (nameInProcess) {
             //Don't worry about it, it's debug
-            System.out.println(Piece.containsMove(Piece.toArray(Pawn.getValidMoves((selectedLine << 3) + selectedFile, Piece.board[selectedLine][selectedFile].isWhite, Main.sBoard)), (selectedLine << 9 ) + (selectedFile << 6 ) + (temp2 << 3) + temp1));
-            System.out.println(Pawn.isMoveValid((selectedLine << 3) + selectedFile, (temp2 << 3) + temp1, Piece.board[selectedLine][selectedFile].isWhite, Main.sBoard));
+//            System.out.println(Piece.containsMove(Piece.toArray(Pawn.getValidMoves((selectedLine << 3) + selectedFile, Piece.board[selectedLine][selectedFile].isWhite, Main.sBoard)), (selectedLine << 9) + (selectedFile << 6) + (temp2 << 3) + temp1));
+//            System.out.println(Pawn.isMoveValid((selectedLine << 3) + selectedFile, (temp2 << 3) + temp1, Piece.board[selectedLine][selectedFile].isWhite, Main.sBoard));
+//            System.out.println(Main.sBoard.charAt((selectedLine << 3) + selectedFile));
+//            System.out.println(selectedLine);
+//            System.out.println(selectedFile);
 
+            if(Main.sBoard.charAt((selectedLine << 3) + selectedFile) == 'p' && selectedLine == 1){
+                Main.promotionPanel.promote(false, temp1);
+            }
+            if(Main.sBoard.charAt((selectedLine << 3) + selectedFile) == 'P' && selectedLine == 6){
+                Main.promotionPanel.promote(true, (temp2 << 3) + temp1);
+            }
             Main.sBoard = Piece.move((selectedLine << 3) + selectedFile, (temp2 << 3) + temp1, Main.sBoard);
             Piece.updateBoard(Main.sBoard);
 
             selectedFile = -1;
             selectedLine = -1;
 
-            /*
-            //Debug to see if valid moves n shit
-            System.out.println(Main.sBoard);
-            int[] moves = Pawn.getAllValidMoves(true, Main.sBoard);
-            System.out.println(moves.length);
-            for(int i = 0; i < moves.length; i++){
-                //System.out.println(Pawn.isMoveValid(moves[i] % 64, moves[i] >> 6, true, Main.sBoard));
-                if(!Pawn.isMoveValid(moves[i] >> 6, moves[i] % 64, true, Main.sBoard)){
-                    int[] m = Piece.convertMoveFormat(moves[i]);
-                    System.out.println("lo"+ m[0] +" fo"+m[1]+" lt"+m[2]+" ft"+m[3]);
-                }
-            }
-            */
 
-            int move = Main.testBot.getBestMove(Main.sBoard, 3);
-            int[] m = Piece.convertMoveFormat(move);
-            Main.sBoard = Piece.move(move >> 6, move % 64, Main.sBoard);
-            Piece.updateBoard(Main.sBoard);
-            System.out.println("lo"+ m[0] +" fo"+m[1]+" lt"+m[2]+" ft"+m[3]);
+            if(!Main.promotionPanel.isVisible()){
+                Main.makeBotMove(Main.testBot2);
+            }
         }
 
         panel.setSelectedFile(selectedFile);
@@ -102,6 +95,19 @@ public class MyMouseListener implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+//        System.out.println("started");
+//        int move = Main.testBot2.getBestMove(Main.sBoard, 2);
+//        int[] m = Piece.convertMoveFormat(move);
+//        Main.sBoard = Piece.move(move >> 6, move % 64, Main.sBoard);
+//        Piece.updateBoard(Main.sBoard);
+//        System.out.println("lo" + m[0] + " fo" + m[1] + " lt" + m[2] + " ft" + m[3]);
+//
+//        move = Main.testBot.getBestMove(Main.sBoard, 2);
+//        m = Piece.convertMoveFormat(move);
+//        Main.sBoard = Piece.move(move >> 6, move % 64, Main.sBoard);
+//        Piece.updateBoard(Main.sBoard);
+//        System.out.println("lo" + m[0] + " fo" + m[1] + " lt" + m[2] + " ft" + m[3]);
+//        panel.repaint();
 
     }
 }

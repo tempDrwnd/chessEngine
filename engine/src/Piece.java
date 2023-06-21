@@ -175,6 +175,13 @@ public abstract class Piece {
                 s.setCharAt(target + 8, '0');
             }
         }
+
+        if(s.charAt(target) == 'p' && target >> 3 == 0){
+            s.setCharAt(target, 'q');
+        }
+        if(s.charAt(target) == 'P' && target >> 3 == 7){
+            s.setCharAt(target, 'Q');
+        }
         s.append((origin << 6) + target);
         return s.toString();
     }
@@ -237,15 +244,14 @@ public abstract class Piece {
         return result;
     }
 
-    public static void printBoard(String board){
-        for(int i = 0; i < 8; i++){
-            System.out.println(board.substring(8 * i, 8 * (i + 1)));
-        }
-    }
-
-    public static void promote(Piece piece, int pos) {
-        board[pos >> 3][pos % 8] = piece;  //Promotes the Pawn
+    public static void promote(char piece, int pos) {
+        StringBuilder s = new StringBuilder(Main.sBoard);
+        s.setCharAt(pos, piece);                //Promotes the Pawn
+        Main.sBoard = s.toString();
+        updateBoard(Main.sBoard);
         Main.promotionPanel.setVisible(false);  //Hides the PromotionPanel
+
+        Main.makeBotMove(Main.testBot2);
         Main.promotionPanel.panel.repaint();    //Repaints the board
     }
 

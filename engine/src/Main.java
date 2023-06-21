@@ -4,7 +4,8 @@ import java.util.Locale;
 
 public class Main {
 
-    public static Bot testBot = new Bot(new double[]{0.5,0.5,-0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5}, false);
+    public static Bot testBot = new Bot(new double[]{0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5}, false);
+    public static Bot testBot2 = new Bot(new double[]{0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5}, true);
 
     public static PromotionPanel promotionPanel = new PromotionPanel();
     public static String sBoard;
@@ -22,7 +23,7 @@ public class Main {
                 {new Pawn(false), new Pawn(false), new Pawn(false), new Pawn(false), new Pawn(false), new Pawn(false), new Pawn(false), new Pawn(false)},
                 {new Rook(false), new Knight(false), new Bishop(false), new King(false), new Queen(false), new Bishop(false), new Knight(false), new Rook(false)}};
 
-        updateSBoard(0,0,0,0);
+        updateSBoard(0, 0, 0, 0);
         MyPanel panel = new MyPanel(squareSize, Piece.board);           //Creates the panel
         MyMouseListener mouse = new MyMouseListener(squareSize, panel); //creates the MouseListener
         promotionPanel.setPanel(panel);
@@ -48,22 +49,33 @@ public class Main {
         //Finishes frame setup
         frame.getContentPane().setBackground(Color.DARK_GRAY);
         frame.setVisible(true);
+
+        makeBotMove(testBot2);
+        panel.repaint();
     }
 
-    public static void updateSBoard(int originLine, int originFile, int targetLine, int targetFile){
+    public static void updateSBoard(int originLine, int originFile, int targetLine, int targetFile) {
         StringBuilder stringBuilder = new StringBuilder();
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j < 8; j++){
-                if(Piece.board[i][j] == null){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (Piece.board[i][j] == null) {
                     stringBuilder.append(0);
-                }else if(Piece.board[i][j].isWhite){
+                } else if (Piece.board[i][j].isWhite) {
                     stringBuilder.append(Piece.board[i][j].getType().toUpperCase(Locale.ROOT).charAt(0));
-                }else{
+                } else {
                     stringBuilder.append(Piece.board[i][j].getType().toLowerCase(Locale.ROOT).charAt(0));
                 }
             }
         }
         stringBuilder.append(((originLine << 9) + (originFile << 6) + (targetLine << 3) + targetFile));
         sBoard = stringBuilder.toString();
+    }
+
+    public static void makeBotMove(Bot bot) {
+        int move = bot.getBestMove(sBoard, 2);
+        int[] m = Piece.convertMoveFormat(move);
+        sBoard = Piece.move(move >> 6, move % 64, sBoard);
+        Piece.updateBoard(sBoard);
+        System.out.println("lo" + m[0] + " fo" + m[1] + " lt" + m[2] + " ft" + m[3]);
     }
 }
