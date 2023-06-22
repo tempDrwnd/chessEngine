@@ -28,7 +28,8 @@ public class Pawn extends Piece {
         }
         int lastMove = Integer.parseInt(board.substring(64));
         return (target >> 3) - (pos >> 3) == 1 && hasLineMovement && board.charAt(lastMove % 64) == 'p'
-                && Math.abs(convertMoveFormat(lastMove)[0] - convertMoveFormat(lastMove)[2]) == 2 && target % 8 == convertMoveFormat(lastMove)[3];
+                && Math.abs(convertMoveFormat(lastMove)[0] - convertMoveFormat(lastMove)[2]) == 2 && target % 8 == convertMoveFormat(lastMove)[3]
+                && (target >> 3) - convertMoveFormat(lastMove)[2] == 1;
     }
 
     public static boolean isValidBlackMove(int pos, int target, String board) {
@@ -44,7 +45,8 @@ public class Pawn extends Piece {
         }
         int lastMove = Integer.parseInt(board.substring(64));
         return (target >> 3) - (pos >> 3) == -1 && hasLineMovement && board.charAt(lastMove % 64) == 'P'
-                && Math.abs(convertMoveFormat(lastMove)[0] - convertMoveFormat(lastMove)[2]) == 2 && target % 8 == convertMoveFormat(lastMove)[3];
+                && Math.abs(convertMoveFormat(lastMove)[0] - convertMoveFormat(lastMove)[2]) == 2 && target % 8 == convertMoveFormat(lastMove)[3]
+                && (target >> 3) - convertMoveFormat(lastMove)[2] == -1;
     }
 
     public static LinkedList<Integer> getValidMoves(int pos, boolean isWhite, String board) {

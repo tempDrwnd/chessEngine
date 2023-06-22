@@ -6,7 +6,7 @@ public class MyMouseListener implements MouseListener {
     private final int squareSize;
     private final MyPanel panel;
 
-    private int selectedFile = -1, selectedLine = -1;
+    private int selectedFile = -1, selectedLine = -1;   // -1 is default for no square selected
 
     public MyMouseListener(int squareSize, MyPanel panel) {
         this.squareSize = squareSize;
@@ -27,7 +27,7 @@ public class MyMouseListener implements MouseListener {
         }
 
         int temp1, temp2;
-        boolean nameInProcess = true;   //Used to reduce compiler load
+        boolean nameInProcess = true;   //Used to reduce compiler load   <-- old comment no idea what that's supposed to mean
         temp1 = e.getX() / squareSize;  //Gets clicked file
         temp2 = e.getY() / squareSize;  //Gets clicked line
 
@@ -59,24 +59,27 @@ public class MyMouseListener implements MouseListener {
 //            System.out.println(selectedLine);
 //            System.out.println(selectedFile);
 
+            //Opens promotionPanel for black if black can promote
             if(Main.sBoard.charAt((selectedLine << 3) + selectedFile) == 'p' && selectedLine == 1){
                 Main.promotionPanel.promote(false, temp1);
             }
+            //Opens promotionPanel for white if white can promote
             if(Main.sBoard.charAt((selectedLine << 3) + selectedFile) == 'P' && selectedLine == 6){
                 Main.promotionPanel.promote(true, (temp2 << 3) + temp1);
             }
-            Main.sBoard = Piece.move((selectedLine << 3) + selectedFile, (temp2 << 3) + temp1, Main.sBoard);
+            Main.sBoard = Piece.move((selectedLine << 3) + selectedFile, (temp2 << 3) + temp1, Main.sBoard);    //Makes the actual move
             Piece.updateBoard(Main.sBoard);
 
-            selectedFile = -1;
-            selectedLine = -1;
+            selectedFile = -1;  //Resets selection
+            selectedLine = -1;  //^
 
-
-            if(!Main.promotionPanel.isVisible()){
+            //Makes the bot move if the bot is playing, and you didn't just promote
+            if(!Main.promotionPanel.isVisible() && Main.botPlays){
                 Main.makeBotMove(Main.testBot2);
             }
         }
 
+        //Repainting onto the screen
         panel.setSelectedFile(selectedFile);
         panel.setSelectedLine(selectedLine);
         panel.repaint();
@@ -93,21 +96,15 @@ public class MyMouseListener implements MouseListener {
 
     }
 
+    /*
+    May all be uncommented.
+    It is recommended, that Main.botPlays == false in that occasion.
+    Leaving the frame with the mouse makes a bot move form both bots.
+    Not automated using task scheduling, because I don't want to.
+     */
     @Override
     public void mouseExited(MouseEvent e) {
-//        System.out.println("started");
-//        int move = Main.testBot2.getBestMove(Main.sBoard, 2);
-//        int[] m = Piece.convertMoveFormat(move);
-//        Main.sBoard = Piece.move(move >> 6, move % 64, Main.sBoard);
-//        Piece.updateBoard(Main.sBoard);
-//        System.out.println("lo" + m[0] + " fo" + m[1] + " lt" + m[2] + " ft" + m[3]);
-//
-//        move = Main.testBot.getBestMove(Main.sBoard, 2);
-//        m = Piece.convertMoveFormat(move);
-//        Main.sBoard = Piece.move(move >> 6, move % 64, Main.sBoard);
-//        Piece.updateBoard(Main.sBoard);
-//        System.out.println("lo" + m[0] + " fo" + m[1] + " lt" + m[2] + " ft" + m[3]);
-//        panel.repaint();
-
+//    Main.makeBotMove(Main.testBot2);
+//    Main.makeBotMove(Main.testBot);
     }
 }

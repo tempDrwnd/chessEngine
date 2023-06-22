@@ -3,24 +3,14 @@ import java.awt.*;
 
 public class PromotionPanel extends JPanel {
 
-    //Buttons to promote to a specific Piece
-    JButton queen = new JButton();
-    JButton rook = new JButton();
-    JButton bishop = new JButton();
-    JButton knight = new JButton();
-
     MyPanel panel;  //Used for repainting
 
-    public PromotionPanel() {   //Constructor
+    public PromotionPanel() {
     }
 
     public void promote(boolean white, int pos) {
-        if(isVisible()){ //No idea why but this is necessary
-            return;
-        }
-
-        removeAll();
-        setLayout(new GridLayout(4, 1));
+        removeAll();                                  //Removes all buttons from previous promotions
+        setLayout(new GridLayout(4, 1));    //Sets the Layout
 
         //Buttons to promote to a specific Piece
         JButton queen = new JButton();
@@ -28,6 +18,7 @@ public class PromotionPanel extends JPanel {
         JButton bishop = new JButton();
         JButton knight = new JButton();
 
+        //Adds all the buttons to the panel
         add(queen);
         add(rook);
         add(bishop);
@@ -40,6 +31,7 @@ public class PromotionPanel extends JPanel {
             rook.setIcon(new ImageIcon("RookWhite.png"));
             bishop.setIcon(new ImageIcon("BishopWhite.png"));
             knight.setIcon(new ImageIcon("KnightWhite.png"));
+
         } else {    //Promoting Pawn is black
 
             //Sets the Icons on the Buttons

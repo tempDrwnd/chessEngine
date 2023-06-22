@@ -5,7 +5,7 @@ public class MyPanel extends JPanel {
     private final int squareSize;
     private final Piece[][] board;
 
-    private int selectedFile = -1, selectedLine = -1;
+    private int selectedFile = -1, selectedLine = -1; // -1 is default for no square selected
 
     private final ImageIcon boardImage = new ImageIcon("Chess_Board.png");  //Image of the chessBoard
 
@@ -34,17 +34,17 @@ public class MyPanel extends JPanel {
         Graphics2D g2D = (Graphics2D) g;
         int a10th_square = squareSize / 10;
         int eight10th_square = (int) (squareSize * 0.8);
-        g2D.drawImage(boardImage.getImage(), 0, 0, 8 * squareSize, 8 * squareSize, null);
+        g2D.drawImage(boardImage.getImage(), 0, 0, 8 * squareSize, 8 * squareSize, null);   //Board in the background
 
         g2D.setPaint(Color.RED);
-        g2D.fillRect(selectedFile * squareSize, selectedLine * squareSize, squareSize, squareSize);
+        g2D.fillRect(selectedFile * squareSize, selectedLine * squareSize, squareSize, squareSize);             //Red square for selected square
 
-        for (int i = 0, l = board.length; i < l; i++) {
-            for (int j = 0; j < l; j++) {
+        for (int i = 0, l = board.length; i < l; i++) {     //Loops through the board
+            for (int j = 0; j < l; j++) {                   //^
                 if (board[i][j] == null) {
-                    continue;
+                    continue;   //Skips empty squares
                 }
-                String type = board[i][j].getType();
+                String type = board[i][j].getType();        //Gets the piece type so we know what to render
                 switch (type) {
                     case "King":
                         if (board[i][j].isWhite) {
