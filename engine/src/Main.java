@@ -12,7 +12,7 @@ public class Main {
     public static String sBoard;
 
     //set true to play against a bot.
-    public static final boolean botPlays = false;
+    public static final boolean botPlays = true;
 
     public static final boolean botPlaysWhite = false;
 

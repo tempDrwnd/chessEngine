@@ -75,7 +75,11 @@ public class MyMouseListener implements MouseListener {
 
             //Makes the bot move if the bot is playing, and you didn't just promote
             if(!Main.promotionPanel.isVisible() && Main.botPlays){
+                if(Main.botPlaysWhite){
                 Main.makeBotMove(Main.testBot2);
+                }else{
+                    Main.makeBotMove(Main.testBot);
+                }
             }
         }
 
